@@ -8,7 +8,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,15 +15,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import org.w3c.dom.Text;
-
 public class SigninActivity extends BaseActivity implements View.OnClickListener {
 
     public static final int ACTION_SIGNIN = 0;
 
     public static final int ACTION_REGISTER = 1;
 
-    private static final String ACTION_KEY_NAME = "action";
+    private static final String INTENT_EXTRA_ACTION = "action";
 
     private static final String PREF_REMEMBER_PASSWORD = "remember_password";
 
@@ -44,7 +41,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
 
     public static void actionStart(Context context, int action) {
         Intent intent = new Intent(context, SigninActivity.class);
-        intent.putExtra(ACTION_KEY_NAME, action);
+        intent.putExtra(INTENT_EXTRA_ACTION, action);
         context.startActivity(intent);
     }
 
@@ -54,7 +51,7 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
         setContentView(R.layout.activity_signin);
 
         Intent intent = getIntent();
-        int action = intent.getIntExtra(ACTION_KEY_NAME, ACTION_SIGNIN);
+        int action = intent.getIntExtra(INTENT_EXTRA_ACTION, ACTION_SIGNIN);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -120,7 +117,12 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
                         prefEditor.putBoolean(PREF_REMEMBER_PASSWORD, true);
                         prefEditor.apply();
                     }
-                    finish();
+
+                    MyApplication.signIn(account);
+                    ActivityCollector.finishAll();
+                    Intent intent = new Intent(this, HomeActivity.class);
+                    intent.putExtra(HomeActivity.INTENT_KEY_ACCOUNT, account);
+                    startActivity(intent);
                 } else {
                     // failure
                     Snackbar.make(view, "Account or Password doesn't match.", Snackbar.LENGTH_SHORT)
@@ -137,7 +139,12 @@ public class SigninActivity extends BaseActivity implements View.OnClickListener
                 prefEditor.putString(PREF_ACCOUNT, account);
                 prefEditor.putString(PREF_PASSWORD, password);
                 prefEditor.apply();
-                finish();
+
+                MyApplication.signIn(account);
+                ActivityCollector.finishAll();
+                Intent intent = new Intent(this, HomeActivity.class);
+                intent.putExtra(HomeActivity.INTENT_KEY_ACCOUNT, account);
+                startActivity(intent);
                 break;
             default:
         }

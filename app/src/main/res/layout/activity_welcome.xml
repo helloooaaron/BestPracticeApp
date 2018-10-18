@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textview_welcome"
         android:text="Welcome to BestPracticeApp"
         android:textSize="24sp"
         android:textColor="@color/colorAccent"
