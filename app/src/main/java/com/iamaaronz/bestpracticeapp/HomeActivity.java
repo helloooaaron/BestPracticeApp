@@ -3,14 +3,19 @@ package com.iamaaronz.bestpracticeapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +26,8 @@ public class HomeActivity extends BaseActivity {
     private String mAccount;
 
     DrawerLayout mDrawerLayout;
+
+    FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +48,56 @@ public class HomeActivity extends BaseActivity {
             actionBar.setTitle("Demos");
         }
 
+        // fab
+        //
+        mFab = findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NestedScrollView nestedScrollView = findViewById(R.id.scroll_view_home);
+                if (nestedScrollView != null) {
+                    nestedScrollView.scrollTo(0, 0);
+                }
+            }
+        });
+
         // Drawer
         //
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
-        navView.setCheckedItem(R.id.nav_menu_msg);
+        navView.setCheckedItem(R.id.nav_menu_home);
         navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Toast.makeText(HomeActivity.this, "you selected " + item.toString(), Toast.LENGTH_SHORT).show();
+                item.setChecked(true);
+
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_content);
+                switch (item.getItemId()) {
+                    case R.id.nav_menu_home:
+                        if (fragment instanceof HomeFragment) {
+                            Toast.makeText(HomeActivity.this, "you already on home", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.replace(R.id.fragment_content, new HomeFragment());
+//                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            mFab.setVisibility(View.VISIBLE);
+                        }
+                        break;
+                    case R.id.nav_menu_msg:
+                        if (fragment instanceof MessageFragment) {
+                            Toast.makeText(HomeActivity.this, "you already on Message Demo", Toast.LENGTH_SHORT).show();
+                        } else {
+                            FragmentTransaction transaction = fragmentManager.beginTransaction();
+                            transaction.replace(R.id.fragment_content, new MessageFragment());
+//                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            mFab.setVisibility(View.GONE);
+                        }
+                        break;
+                }
                 mDrawerLayout.closeDrawers();
                 return true;
             }

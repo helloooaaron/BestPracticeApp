@@ -1,3 +1,71 @@
 <resources>
     <string name="app_name">BestPracticeApp</string>
+
+    <string name="drawer_layout_title">DrawerLayout</string>
+    <string name="drawer_layout_text">
+        To add a navigation drawer, declare your layout with a DrawerLayout as the root view.
+        Inside the DrawerLayout, add a layout for the main content for the UI (your primary layout
+        when the drawer is hidden) and another view (normally NavigationView) that contains the
+        contents of the navigation drawer.\n\n
+
+        The <b>FrameLayout</b> is set to match the parent view\'s width and height, because it represents
+        the entire UI when the navigation drawer is closed.\n\n
+
+        The <b>NavigationView</b> (the drawer) must specify its horizontal gravity with the
+        android:layout_gravity attribute. To support right-to-left (RTL) languages, specify the
+        value with <b>"start"</b> instead of "left" (so the drawer appears on the right when the layout is RTL).\n\n
+
+        The NavigationView sets <b>android:fitsSystemWindows</b> to "true" to ensure the contents of the
+        drawer don’t overlay the status bar and other system windows. The DrawerLayout also uses
+        fitsSystemWindows as a sign that it needs to inset its children (such as the main content view),
+        but still draw the status bar background in that space as per the material design specs
+        (which defaults to your theme’s colorPrimaryDark).\n
+    </string>
+
+    <string name="appbar_layout_title">AppBarLayout</string>
+    <string name="appbar_layout_text">
+        AppBarLayout is a vertical LinearLayout which implements many of the features of material
+        designs app bar concept, namely scrolling gestures\n\n
+
+        Children should provide their desired scrolling behavior through <b>app:layout_scrollFlags</b>.\n\n
+
+        This view depends heavily on being used as a direct child within a CoordinatorLayout\n\n
+
+        AppBarLayout also requires a separate scrolling sibling in order to know when to scroll.
+        The binding is done through <b>app:layout_behavior="@string/appbar_scrolling_view_behavior"</b>\n\n
+
+        Next, we need to define <b><i>an association between the AppBarLayout and the View that will be scrolled</i></b>.
+        Add an <b>app:layout_behavior</b> to a RecyclerView or any other View capable of nested scrolling
+        such as  NestedScrollView. The support library contains a special string resource
+        <b>@string/appbar_scrolling_view_behavior</b> that maps to AppBarLayout.ScrollingViewBehavior,
+        <b><i>which is used to notify the AppBarLayout when scroll events occur on this particular view.</i></b>
+        The behavior must be established on the view that triggers the event.\n\n
+
+        <b>app:layout_behavior</b> should be set to those views which are direct child of Coordinator layout\n
+    </string>
+
+    <string name="coordinator_layout_title">CoordinaterLayout</string>
+    <string name="coordinator_layout_text">
+        CoordinatorLayout is a super-powered FrameLayout.
+        CoordinatorLayout is intended for two primary use cases:\n
+        1. As a top-level application decor or chrome layout\n
+        2. As a container for a specific interaction with one or more child views\n\n
+        By specifying Behaviors for child views of a CoordinatorLayout you can provide many different
+        interactions within a single parent and those views can also interact with one another.
+        View classes can specify a default behavior when used as a child of a CoordinatorLayout using
+        the CoordinatorLayout.DefaultBehavior annotation.\n\n
+
+        Behaviors may be used to implement a variety of interactions and additional layout modifications
+        ranging from sliding drawers and panels to swipe-dismissable elements and buttons that stick
+        to other elements as they move and animate.\n\n
+
+        Children of a CoordinatorLayout may have an anchor. This view id must correspond to an
+        arbitrary descendant of the CoordinatorLayout, but it may not be the anchored child itself
+        or a descendant of the anchored child. This can be used to place floating views relative to
+        other arbitrary content panes.\n\n
+
+        Children can specify insetEdge to describe how the view insets the CoordinatorLayout.
+        Any child views which are set to dodge the same inset edges by dodgeInsetEdges will be moved
+        appropriately so that the views do not overlap.\n
+    </string>
 </resources>
