@@ -1,4 +1,4 @@
-package com.iamaaronz.bestpracticeapp;
+package com.iamaaronz.bestpracticeapp.message;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.iamaaronz.bestpracticeapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

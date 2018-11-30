@@ -68,4 +68,16 @@
         Any child views which are set to dodge the same inset edges by dodgeInsetEdges will be moved
         appropriately so that the views do not overlap.\n
     </string>
+
+    <string-array name="download_selections">
+        <item>eclipse</item>
+        <item>cmake</item>
+        <item>mbedtls</item>
+    </string-array>
+
+    <string-array name="download_urls">
+        <item>https://raw.githubusercontent.com/guolindev/eclipse/master/eclipse-inst-win64.exe</item>
+        <item>https://cmake.org/files/v3.13/cmake-3.13.0-rc2.tar.gz</item>
+        <item>https://tls.mbed.org/download/start/mbedtls-2.13.0-apache.tgz</item>
+    </string-array>
 </resources>
