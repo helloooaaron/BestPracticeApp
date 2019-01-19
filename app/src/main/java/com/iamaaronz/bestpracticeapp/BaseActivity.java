@@ -85,3 +85,5 @@ public class BaseActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy activity " + this.getLocalClassName());
     }
 }
+
+

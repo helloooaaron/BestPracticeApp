@@ -14,6 +14,10 @@
             android:title="Download Service Demo"
             android:icon="@mipmap/ic_download" />
 
+        <item android:id="@+id/nav_menu_fruits"
+            android:title="Fruits Demo"
+            android:icon="@mipmap/ic_toys" />
+
        <item android:title="TBA" />
 
     </group>

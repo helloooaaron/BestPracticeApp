@@ -42,8 +42,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     DrawerLayout mDrawerLayout;
 
-    FloatingActionButton mFab;
-
     private MyService.MyServiceBinder mBinder;
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -77,10 +75,10 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
             actionBar.setTitle("Demos");
         }
 
-        // fab
+        // Fab
         //
-        mFab = findViewById(R.id.fab);
-        mFab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NestedScrollView nestedScrollView = findViewById(R.id.scroll_view_home);
@@ -94,8 +92,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         //
         mDrawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navView = findViewById(R.id.nav_view);
-        navView.setCheckedItem(R.id.nav_menu_home);
         navView.setNavigationItemSelectedListener(this);
+        navView.setCheckedItem(R.id.nav_menu_home);
     }
 
     @Override
@@ -133,10 +131,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                     Toast.makeText(this, "you already on home", Toast.LENGTH_SHORT).show();
                 } else {
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.fragment_content, new HomeFragment());
+                    transaction.replace(R.id.fragment_content, new HomeFragment().setFab((FloatingActionButton) findViewById(R.id.fab)));
 //                            transaction.addToBackStack(null);
                     transaction.commit();
-                    mFab.setVisibility(View.VISIBLE);
                 }
                 break;
             case R.id.nav_menu_msg:
@@ -144,10 +141,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
                     Toast.makeText(this, "you already on Message Demo", Toast.LENGTH_SHORT).show();
                 } else {
                     FragmentTransaction transaction = fragmentManager.beginTransaction();
-                    transaction.replace(R.id.fragment_content, new MessageFragment());
+                    transaction.replace(R.id.fragment_content, new MessageFragment().setFab((FloatingActionButton) findViewById(R.id.fab)));
 //                            transaction.addToBackStack(null);
                     transaction.commit();
-                    mFab.setVisibility(View.GONE);
                 }
                 break;
             case R.id.nav_menu_download:

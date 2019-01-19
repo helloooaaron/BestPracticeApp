@@ -2,7 +2,9 @@ package com.iamaaronz.bestpracticeapp.message;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -13,7 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.iamaaronz.bestpracticeapp.MyApplication;
 import com.iamaaronz.bestpracticeapp.R;
 
 import java.util.ArrayList;
@@ -26,6 +30,13 @@ public class MessageFragment extends Fragment {
     RecyclerView mRecyclerView;
 
     EditText mEditText;
+
+    FloatingActionButton mFab;
+
+    public Fragment setFab(@Nullable FloatingActionButton fab) {
+        mFab = fab;
+        return this;
+    }
 
     @Nullable
     @Override
@@ -53,6 +64,17 @@ public class MessageFragment extends Fragment {
                 }
             }
         });
+
+        if (mFab != null) {
+            mFab.setBackgroundTintList(
+                    ResourcesCompat.getColorStateList(getResources(), R.color.colorPrimary, MyApplication.getContext().getTheme()));
+            mFab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    mRecyclerView.scrollToPosition(0);
+                }
+            });
+        }
 
         return view;
     }
